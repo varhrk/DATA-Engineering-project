@@ -1,0 +1,32 @@
+{
+	"name": "DS_PARAM",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_gen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "dynamicgit.json",
+				"fileSystem": "firstraw"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"PARA_Relativelink": {
+					"type": "string"
+				},
+				"para_directory": {
+					"type": "string"
+				},
+				"para_filename": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}
