@@ -71,7 +71,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"PARA_Relativelink": {
-											"value": "@activity('Lookupparametrs').output.value.PARA_Relativelink",
+											"value": "@item().PARA_Relativelink",
 											"type": "Expression"
 										}
 									}
@@ -83,11 +83,11 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"para_directory": {
-											"value": "@activity('Lookupparametrs').output.value.para_directory",
+											"value": "@item().para_directory",
 											"type": "Expression"
 										},
 										"para_filename": {
-											"value": "@activity('Lookupparametrs').output.value.para_filename",
+											"value": "@item().para_filename",
 											"type": "Expression"
 										}
 									}
