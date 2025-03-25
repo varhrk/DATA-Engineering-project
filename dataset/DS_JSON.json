@@ -1,0 +1,33 @@
+{
+	"name": "DS_JSON",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_Gen2",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "covid.json",
+				"fileSystem": "jsonlookup"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"relativelink": {
+					"type": "string"
+				},
+				"DIRNAME": {
+					"type": "string"
+				},
+				"FileName": {
+					"type": "string"
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

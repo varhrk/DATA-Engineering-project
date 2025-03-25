@@ -1,0 +1,36 @@
+{
+	"name": "DS_SOUrcehttp",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "LS_HttpServer1_ECDC",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"sourceurl": {
+					"value": "@dataset().sourceurl",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"relative_URL": {
+				"type": "String"
+			},
+			"sourceurl": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "HttpServerLocation"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
