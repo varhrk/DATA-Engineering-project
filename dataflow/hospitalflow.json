@@ -16,7 +16,7 @@
 						"referenceName": "DS_LOOKUP",
 						"type": "DatasetReference"
 					},
-					"name": "source2"
+					"name": "lookupsourcecountrydim"
 				}
 			],
 			"sinks": [],
@@ -53,7 +53,7 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source2",
+				"     ignoreNoFilesFound: false) ~> lookupsourcecountrydim",
 				"source1 select(mapColumn(",
 				"          country,",
 				"          indicator,",
