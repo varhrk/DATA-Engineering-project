@@ -103,6 +103,7 @@
 				"     broadcast: 'auto')~> lookup1",
 				"select2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     truncate: true,",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
