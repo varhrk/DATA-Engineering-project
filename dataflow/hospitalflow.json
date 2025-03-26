@@ -42,7 +42,7 @@
 				"source1 select(mapColumn(",
 				"          country,",
 				"          indicator,",
-				"          date,",
+				"          reported_date = date,",
 				"          year_week,",
 				"          value,",
 				"          source",
