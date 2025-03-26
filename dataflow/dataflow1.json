@@ -29,7 +29,7 @@
 					"name": "EUROPEONLY"
 				},
 				{
-					"name": "select1"
+					"name": "renaminganddeletingcolumns"
 				},
 				{
 					"name": "pivot1"
@@ -77,8 +77,8 @@
 				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 pivot(pivotBy(indicator),",
+				"     skipDuplicateMapOutputs: true) ~> renaminganddeletingcolumns",
+				"renaminganddeletingcolumns pivot(pivotBy(indicator),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivot1",
 				"lookup1 select(skipDuplicateMapInputs: true,",
