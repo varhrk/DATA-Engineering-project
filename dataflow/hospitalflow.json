@@ -19,6 +19,9 @@
 			"transformations": [
 				{
 					"name": "select1"
+				},
+				{
+					"name": "pivot1"
 				}
 			],
 			"scriptLines": [
@@ -42,11 +45,12 @@
 				"          date,",
 				"          year_week,",
 				"          value,",
-				"          source,",
-				"          url",
+				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select1"
+				"     skipDuplicateMapOutputs: true) ~> select1",
+				"select1 pivot(columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1"
 			]
 		}
 	}
