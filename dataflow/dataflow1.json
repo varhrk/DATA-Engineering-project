@@ -103,7 +103,7 @@
 				"     broadcast: 'auto')~> lookup1",
 				"select2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     rowFolderUrlColumn:'continent',",
+				"     rowUrlColumn:'continent',",
 				"     truncate: true,",
 				"     umask: 0022,",
 				"     preCommands: [],",
