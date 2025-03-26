@@ -36,6 +36,9 @@
 				},
 				{
 					"name": "select2"
+				},
+				{
+					"name": "lookup1"
 				}
 			],
 			"scriptLines": [
@@ -79,8 +82,12 @@
 				"     skipDuplicateMapOutputs: true) ~> select1",
 				"select1 pivot(columnNaming: '$N$V',",
 				"     lateral: true) ~> pivot1",
-				"pivot1 select(skipDuplicateMapInputs: true,",
+				"lookup1 select(skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
+				"pivot1 lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup1",
 				"select2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
