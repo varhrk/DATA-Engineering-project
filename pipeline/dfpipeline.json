@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "dfpipeline",
 	"properties": {
 		"activities": [
 			{
-				"name": "TRANSFORM",
+				"name": "dataflow1",
 				"type": "ExecuteDataFlow",
 				"dependsOn": [],
 				"policy": {
