@@ -49,7 +49,11 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 pivot(pivotBy(indicator, ['Daily hospital occupancy', 'Daily ICU occupancy']),",
+				"select1 pivot(groupBy(country,",
+				"          source,",
+				"          {} = ERROR_FUNCTION('')),",
+				"     pivotBy(indicator, ['Daily hospital occupancy', 'Daily ICU occupancy']),",
+				"     count = sum(value),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivot1"
 			]
