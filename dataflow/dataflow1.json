@@ -84,6 +84,7 @@
 				"          reported_date,",
 				"          source),",
 				"     pivotBy(indicator),",
+				"     count = sum(daily_count),",
 				"     columnNaming: '$N_$V',",
 				"     lateral: true) ~> pivot1",
 				"lookup1 select(skipDuplicateMapInputs: true,",
