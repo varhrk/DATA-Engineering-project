@@ -72,7 +72,8 @@
 				"     count = sum(value),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivot1",
-				"select1, lookupsourcecountrydim lookup(select1@country == lookupsourcecountrydim@country,",
+				"select1, lookupsourcecountrydim lookup(select1@country == lookupsourcecountrydim@country",
+				"     && ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1"
