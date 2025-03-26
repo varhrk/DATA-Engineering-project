@@ -25,7 +25,7 @@
 				"          population as string,",
 				"          indicator as string,",
 				"          daily_count as string,",
-				"          date as string,",
+				"          date as date,",
 				"          rate_14_day as string,",
 				"          source as string",
 				"     ),",
