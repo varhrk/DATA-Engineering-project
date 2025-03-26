@@ -12,6 +12,10 @@
 					"name": "source1"
 				},
 				{
+					"dataset": {
+						"referenceName": "DS_LOOKUP",
+						"type": "DatasetReference"
+					},
 					"name": "source2"
 				}
 			],
@@ -22,6 +26,9 @@
 				},
 				{
 					"name": "pivot1"
+				},
+				{
+					"name": "lookup1"
 				}
 			],
 			"scriptLines": [
@@ -37,8 +44,16 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source1",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source2",
+				"source(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source2",
 				"source1 select(mapColumn(",
 				"          country,",
 				"          indicator,",
@@ -49,14 +64,18 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 pivot(groupBy(country,",
+				"lookup1 pivot(groupBy(country,",
 				"          source,",
 				"          reported_date,",
 				"          reported_year_week),",
 				"     pivotBy(indicator, ['Daily hospital occupancy', 'Daily ICU occupancy']),",
 				"     count = sum(value),",
 				"     columnNaming: '$N$V',",
-				"     lateral: true) ~> pivot1"
+				"     lateral: true) ~> pivot1",
+				"select1 lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookup1"
 			]
 		}
 	}
