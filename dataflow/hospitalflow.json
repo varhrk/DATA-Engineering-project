@@ -22,6 +22,9 @@
 				},
 				{
 					"name": "pivot1"
+				},
+				{
+					"name": "split1"
 				}
 			],
 			"scriptLines": [
@@ -49,14 +52,16 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 pivot(groupBy(country,",
+				"split1 pivot(groupBy(country,",
 				"          source,",
 				"          reported_date,",
 				"          year_week),",
 				"     pivotBy(indicator, ['Daily hospital occupancy', 'Daily ICU occupancy']),",
 				"     count = sum(value),",
 				"     columnNaming: '$N$V',",
-				"     lateral: true) ~> pivot1"
+				"     lateral: true) ~> pivot1",
+				"select1 split(ERROR_FUNCTION(''),",
+				"     disjoint: false) ~> split1@(, )"
 			]
 		}
 	}
