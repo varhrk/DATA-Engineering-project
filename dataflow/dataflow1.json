@@ -21,6 +21,10 @@
 			],
 			"sinks": [
 				{
+					"dataset": {
+						"referenceName": "DS_Procesed",
+						"type": "DatasetReference"
+					},
 					"name": "sink1"
 				}
 			],
@@ -106,6 +110,10 @@
 				"     broadcast: 'auto')~> lookup1",
 				"select2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
+				"     partitionFileNames:[''],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
