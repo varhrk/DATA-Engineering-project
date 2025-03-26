@@ -6,7 +6,7 @@
 			"sources": [
 				{
 					"dataset": {
-						"referenceName": "ds_SOURCE",
+						"referenceName": "DS_HSP_ADM",
 						"type": "DatasetReference"
 					},
 					"name": "source1"
@@ -20,14 +20,12 @@
 			"scriptLines": [
 				"source(output(",
 				"          country as string,",
-				"          country_code as string,",
-				"          continent as string,",
-				"          population as string,",
 				"          indicator as string,",
-				"          daily_count as string,",
-				"          date as date,",
-				"          rate_14_day as string,",
-				"          source as string",
+				"          date as string,",
+				"          year_week as string,",
+				"          value as string,",
+				"          source as string,",
+				"          url as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
