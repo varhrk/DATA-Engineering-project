@@ -63,7 +63,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source2",
-				"source1 filter(ERROR_FUNCTION('')) ~> EUROPEONLY",
+				"source1 filter(continent=='Europe' && not(isNull(country_code))) ~> EUROPEONLY",
 				"EUROPEONLY select(mapColumn(",
 				"          country,",
 				"          country_code,",
