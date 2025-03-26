@@ -1,0 +1,51 @@
+{
+	"name": "hospitalflow1",
+	"properties": {
+		"type": "Flowlet",
+		"typeProperties": {
+			"sources": [],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "pivot1"
+				},
+				{
+					"name": "input1"
+				},
+				{
+					"name": "lookupinputcountrydim"
+				}
+			],
+			"scriptLines": [
+				"input(output(",
+				"          country as string,",
+				"          indicator as string,",
+				"          date as date,",
+				"          year_week as string,",
+				"          value as double,",
+				"          source as string,",
+				"          url as string",
+				"     ),",
+				"     order: 0,",
+				"     allowSchemaDrift: true) ~> input1",
+				"input(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as integer",
+				"     ),",
+				"     order: 1,",
+				"     allowSchemaDrift: true) ~> lookupinputcountrydim",
+				"input1 pivot(groupBy(country = select1@country,",
+				"          source,",
+				"          reported_date,",
+				"          reported_year_week),",
+				"     pivotBy(indicator, ['Daily hospital occupancy', 'Daily ICU occupancy']),",
+				"     count = sum(value),",
+				"     columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1"
+			]
+		}
+	}
+}

@@ -16,7 +16,14 @@
 						"referenceName": "DS_LOOKUP",
 						"type": "DatasetReference"
 					},
-					"name": "lookupsourcecountrydim"
+					"name": "lookupcountrydim"
+				},
+				{
+					"dataset": {
+						"referenceName": "Ds_day_dim",
+						"type": "DatasetReference"
+					},
+					"name": "lookupdatedim"
 				}
 			],
 			"sinks": [],
@@ -25,7 +32,7 @@
 					"name": "select1"
 				},
 				{
-					"name": "pivot1"
+					"name": "pivotweekly"
 				},
 				{
 					"name": "lookup1"
@@ -34,7 +41,19 @@
 					"name": "select2"
 				},
 				{
-					"name": "split1"
+					"name": "dailyfromwekly"
+				},
+				{
+					"name": "pivotdaily"
+				},
+				{
+					"name": "derivedweek"
+				},
+				{
+					"name": "aggregatedate"
+				},
+				{
+					"name": "joinaggreweekly"
 				}
 			],
 			"scriptLines": [
@@ -55,11 +74,28 @@
 				"          country_code_2_digit as string,",
 				"          country_code_3_digit as string,",
 				"          continent as string,",
-				"          population as integer",
+				"          population as string",
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> lookupsourcecountrydim",
+				"     ignoreNoFilesFound: false) ~> lookupcountrydim",
+				"source(output(",
+				"          date_key as string,",
+				"          date as string,",
+				"          year as string,",
+				"          month as string,",
+				"          day as string,",
+				"          day_name as string,",
+				"          day_of_year as string,",
+				"          week_of_month as string,",
+				"          week_of_year as string,",
+				"          month_name as string,",
+				"          year_month as string,",
+				"          year_week as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> lookupdatedim",
 				"source1 select(mapColumn(",
 				"          country,",
 				"          indicator,",
@@ -70,15 +106,19 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"split1 pivot(groupBy(country = select1@country,",
+				"joinaggreweekly pivot(groupBy(country,",
+				"          week_start,",
+				"          week_end_date,",
+				"          population,",
 				"          source,",
-				"          reported_date,",
-				"          reported_year_week),",
-				"     pivotBy(indicator, ['Daily hospital occupancy', 'Daily ICU occupancy']),",
+				"          reported_year_week,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit),",
+				"     pivotBy(indicator, ['Weekly new hospital admissions per 100k', 'Weekly new ICU admissions per 100k']),",
 				"     count = sum(value),",
-				"     columnNaming: '$N$V',",
-				"     lateral: true) ~> pivot1",
-				"select1, lookupsourcecountrydim lookup(select1@country == lookupsourcecountrydim@country,",
+				"     columnNaming: '$V$N',",
+				"     lateral: false) ~> pivotweekly",
+				"select1, lookupcountrydim lookup(select1@country == lookupcountrydim@country,",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
@@ -95,8 +135,27 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
-				"select2 split(ERROR_FUNCTION(''),",
-				"     disjoint: false) ~> split1@(, )"
+				"select2 split(indicator == 'Weekly new hospital admissions per 100k' || indicator == 'Weekly new ICU admissions per 100k',",
+				"     disjoint: false) ~> dailyfromwekly@(weekly, daily)",
+				"dailyfromwekly@daily pivot(groupBy(country,",
+				"          reported_date,",
+				"          source,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population),",
+				"     pivotBy(indicator),",
+				"     count = sum(value),",
+				"     columnNaming: '$V_$N',",
+				"     lateral: true) ~> pivotdaily",
+				"lookupdatedim derive(week_num = year + '-W' + lpad(week_of_year, 2, '0')) ~> derivedweek",
+				"derivedweek aggregate(groupBy(week_num),",
+				"     week_start = min(date),",
+				"          week_end_date = max(date)) ~> aggregatedate",
+				"dailyfromwekly@weekly, aggregatedate join(reported_year_week == week_num,",
+				"     joinType:'inner',",
+				"     matchType:'exact',",
+				"     ignoreSpaces: false,",
+				"     broadcast: 'auto')~> joinaggreweekly"
 			]
 		}
 	}
