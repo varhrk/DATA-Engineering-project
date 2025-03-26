@@ -47,9 +47,6 @@
 				},
 				{
 					"name": "lookup1"
-				},
-				{
-					"name": "Assert1"
 				}
 			],
 			"scriptLines": [
@@ -115,16 +112,13 @@
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
-				"select2 assert(expectTrue(ERROR_FUNCTION(''), false, 'assert1')) ~> Assert1",
-				"Assert1 sink(allowSchemaDrift: true,",
+				"select2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     outputAssertFailedRows: true,",
-				"     assertFailure_fileSystem: 'processed') ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
