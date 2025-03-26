@@ -74,7 +74,7 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source2",
-				"source1 filter(continent =='Asia' && not(isNull(country_code))) ~> EUROPEONLY",
+				"source1 filter(continent =='Africa' && not(isNull(country_code))) ~> EUROPEONLY",
 				"EUROPEONLY select(mapColumn(",
 				"          country,",
 				"          country_code,",
