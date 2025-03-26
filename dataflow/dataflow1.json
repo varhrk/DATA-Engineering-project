@@ -89,7 +89,7 @@
 				"     lateral: true) ~> pivot1",
 				"lookup1 select(skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select2",
-				"pivot1 lookup(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"pivot1, source2 lookup(pivot1@country == source2@country,",
 				"     multiple: false,",
 				"     pickup: 'any',",
 				"     broadcast: 'auto')~> lookup1",
