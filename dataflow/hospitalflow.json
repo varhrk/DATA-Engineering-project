@@ -49,7 +49,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 pivot(pivotBy(indicator),",
+				"select1 pivot(pivotBy(indicator, ['Daily hospital occupancy', 'Daily ICU occupancy']),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> pivot1"
 			]
