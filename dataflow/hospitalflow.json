@@ -86,7 +86,6 @@
 				"          reported_year_week,",
 				"          value,",
 				"          source,",
-				"          country = lookupsourcecountrydim@country,",
 				"          country_code_2_digit,",
 				"          country_code_3_digit,",
 				"          population",
