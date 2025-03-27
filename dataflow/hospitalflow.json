@@ -166,7 +166,8 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select3",
-				"joinaggreweekly pivot(pivotBy(indicator),",
+				"joinaggreweekly pivot(groupBy(country),",
+				"     pivotBy(indicator),",
 				"     count = sum(value),",
 				"     columnNaming: '$N_$V',",
 				"     lateral: true) ~> pivotweekly"
