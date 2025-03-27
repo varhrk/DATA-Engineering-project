@@ -159,8 +159,7 @@
 				"          week_end_date,",
 				"          value,",
 				"          indicator,",
-				"          source,",
-				"          week_num",
+				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select3"
