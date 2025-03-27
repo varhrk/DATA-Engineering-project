@@ -167,6 +167,7 @@
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select3",
 				"joinaggreweekly pivot(groupBy(country,",
+				"          {} = ERROR_FUNCTION(''),",
 				"          country_code_2_digit,",
 				"          country_code_3_digit),",
 				"     pivotBy(indicator),",
