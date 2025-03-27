@@ -54,6 +54,9 @@
 				},
 				{
 					"name": "joinaggreweekly"
+				},
+				{
+					"name": "sort1"
 				}
 			],
 			"scriptLines": [
@@ -106,7 +109,7 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"joinaggreweekly pivot(groupBy(country,",
+				"sort1 pivot(groupBy(country,",
 				"          week_start,",
 				"          week_end_date,",
 				"          population,",
@@ -155,7 +158,9 @@
 				"     joinType:'inner',",
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
-				"     broadcast: 'auto')~> joinaggreweekly"
+				"     broadcast: 'auto')~> joinaggreweekly",
+				"joinaggreweekly sort(asc(country, true),",
+				"     desc(reported_date, true)) ~> sort1"
 			]
 		}
 	}
