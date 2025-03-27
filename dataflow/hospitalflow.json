@@ -152,7 +152,6 @@
 				"sort1 select(mapColumn(",
 				"          country,",
 				"          indicator,",
-				"          reported_date,",
 				"          reported_year_week,",
 				"          value,",
 				"          source,",
