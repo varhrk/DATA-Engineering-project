@@ -57,6 +57,9 @@
 				},
 				{
 					"name": "select3"
+				},
+				{
+					"name": "pivot1"
 				}
 			],
 			"scriptLines": [
@@ -147,7 +150,7 @@
 				"     matchType:'exact',",
 				"     ignoreSpaces: false,",
 				"     broadcast: 'auto')~> joinaggreweekly",
-				"joinaggreweekly sort(asc(country, true),",
+				"pivot1 sort(asc(country, true),",
 				"     desc(reported_date, true)) ~> sort1",
 				"sort1 select(mapColumn(",
 				"          country,",
@@ -162,7 +165,9 @@
 				"          source",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> select3"
+				"     skipDuplicateMapOutputs: true) ~> select3",
+				"joinaggreweekly pivot(columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1"
 			]
 		}
 	}
